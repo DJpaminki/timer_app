@@ -19,6 +19,7 @@ Depends on all your plugins, and provides a function to register them.
   s.static_framework    = true
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES' }
   s.dependency 'Flutter'
+  s.dependency 'awesome_notifications'
   s.dependency 'flutter_ringtone_player'
   s.dependency 'path_provider_ios'
 end

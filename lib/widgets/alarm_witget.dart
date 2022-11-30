@@ -1,7 +1,10 @@
+import 'dart:async';
+
+import 'package:cool_alert/cool_alert.dart';
 import 'package:day_night_time_picker/lib/daynight_timepicker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
 
-bool switchBool = false;
 List<Map<String, int>> alarmList = [];
 
 class AlarmWidgets extends StatefulWidget {
@@ -28,6 +31,29 @@ class _AlarmWidgetsState extends State<AlarmWidgets> {
     setState(() {
       alarmList.removeAt(index);
     });
+  }
+
+  void alarm() {
+    FlutterRingtonePlayer.play(
+      fromAsset: 'assets/sound/rington.wav',
+      looping: true,
+      volume: 0.7,
+      asAlarm: true,
+    );
+    CoolAlert.show(
+      context: context,
+      onConfirmBtnTap: () {
+        FlutterRingtonePlayer.stop();
+        Navigator.pop(context);
+      },
+      type: CoolAlertType.info,
+      text: "Время истекло",
+      confirmBtnColor: Colors.black,
+      confirmBtnText: "Выключить",
+      title: "",
+      backgroundColor: Colors.black,
+      loopAnimation: true,
+    );
   }
 
   @override
@@ -85,7 +111,8 @@ class _AlarmWidgetsState extends State<AlarmWidgets> {
               itemBuilder: (context, index) => AlarmTimeWidgets(
                 localTime: alarmList[index],
                 alarmIndex: index,
-                function: (context) => deleteAlarm(index),
+                deleteFunc: (context) => deleteAlarm(index),
+                alarmFnc: () => alarm(),
               ),
             ),
           ),
@@ -100,18 +127,33 @@ class AlarmTimeWidgets extends StatefulWidget {
     super.key,
     required this.localTime,
     required this.alarmIndex,
-    required this.function,
+    required this.deleteFunc,
+    required this.alarmFnc,
   });
 
   final int alarmIndex;
   final Map<String, int> localTime;
-  Function(BuildContext)? function;
+  Function(BuildContext)? deleteFunc;
+  Function() alarmFnc;
 
   @override
   State<AlarmTimeWidgets> createState() => _AlarmTimeWidgetsState();
 }
 
+bool switchBool = true;
+Timer? timer;
+
 class _AlarmTimeWidgetsState extends State<AlarmTimeWidgets> {
+  void isOn(bool value) {
+    timer = Timer.periodic(const Duration(minutes: 1), (timer) {
+      (value == true &&
+              widget.localTime['hour']! == TimeOfDay.now().hour.toInt() &&
+              widget.localTime['minuet']! == TimeOfDay.now().minute.toInt())
+          ? widget.alarmFnc()
+          : null;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -138,6 +180,7 @@ class _AlarmTimeWidgetsState extends State<AlarmTimeWidgets> {
                     activeColor: Colors.black,
                     onChanged: (bool value) {
                       setState(() {
+                        isOn(switchBool);
                         switchBool = value;
                       });
                     },
@@ -145,7 +188,7 @@ class _AlarmTimeWidgetsState extends State<AlarmTimeWidgets> {
                   const SizedBox(width: 20),
                   TextButton(
                     onPressed: () {
-                      widget.function!(context);
+                      widget.deleteFunc!(context);
                     },
                     style: ButtonStyle(
                       overlayColor:

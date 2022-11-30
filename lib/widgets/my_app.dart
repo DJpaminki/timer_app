@@ -29,7 +29,7 @@ class _MyAppState extends State<MyApp> {
           index: _selectedTab,
           children: const [
             StopWatch(),
-            AlarmWidgets(),
+            // AlarmWidgets(),
             TimerWidgets(),
           ],
         ),
@@ -48,13 +48,13 @@ class _MyAppState extends State<MyApp> {
               ),
               label: '',
             ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.alarm,
-                color: Colors.white,
-              ),
-              label: '',
-            ),
+            // BottomNavigationBarItem(
+            //   icon: Icon(
+            //     Icons.alarm,
+            //     color: Colors.white,
+            //   ),
+            //   label: '',
+            // ),
             BottomNavigationBarItem(
               icon: Icon(
                 Icons.timer,

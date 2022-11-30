@@ -1,21 +1,33 @@
 PODS:
+  - awesome_notifications (0.0.5):
+    - Flutter
+    - IosAwnCore (= 0.7.3)
   - Flutter (1.0.0)
   - flutter_ringtone_player (0.0.1):
     - Flutter
   - FlutterPluginRegistrant (0.0.1):
+    - awesome_notifications
     - Flutter
     - flutter_ringtone_player
     - path_provider_ios
+  - IosAwnCore (0.7.3)
   - path_provider_ios (0.0.1):
     - Flutter
 
 DEPENDENCIES:
+  - awesome_notifications (from `.symlinks/plugins/awesome_notifications/ios`)
   - Flutter (from `Flutter`)
   - flutter_ringtone_player (from `.symlinks/plugins/flutter_ringtone_player/ios`)
   - FlutterPluginRegistrant (from `Flutter/FlutterPluginRegistrant`)
   - path_provider_ios (from `.symlinks/plugins/path_provider_ios/ios`)
 
+SPEC REPOS:
+  trunk:
+    - IosAwnCore
+
 EXTERNAL SOURCES:
+  awesome_notifications:
+    :path: ".symlinks/plugins/awesome_notifications/ios"
   Flutter:
     :path: Flutter
   flutter_ringtone_player:
@@ -26,9 +38,11 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/path_provider_ios/ios"
 
 SPEC CHECKSUMS:
+  awesome_notifications: d63d9a25f126860f9a600850d99772237895b3ba
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
   flutter_ringtone_player: 15eba85187230b87b2512f0e1b92225618bc03e7
-  FlutterPluginRegistrant: 19cd7584e4dd580d548c56fdcf2ac3b8a8e7b432
+  FlutterPluginRegistrant: 57c18bd95097e5d4389ce6b4f4300c6f7d5525c2
+  IosAwnCore: 6494e0e174d49f04f513e8a002187be226889a37
   path_provider_ios: 14f3d2fd28c4fdb42f44e0f751d12861c43cee02
 
 PODFILE CHECKSUM: f23cdaf6df7581c877bdc345e211b5b99c6b6f59
